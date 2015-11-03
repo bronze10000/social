@@ -1,0 +1,27 @@
+<% cache text_post do %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <%= text_post.title %>
+    </h3>
+    <%= link_to("#{time_ago_in_words text_post.created_at} ago",
+      post_path(text_post)) %>
+  </div>
+
+  <div class="panel-body">
+    <p><em>By <%= link_to text_post.user.name, text_post.user %></em></p>
+
+    <p><%= sanitize text_post.body %></p>
+    <p><%= pluralize text_post.cached_comment_count, "Comment" %></p>
+
+    <%#= debug text_post %>
+  </div>
+</div>
+<% end %>
+
+<% if text_post.user == current_user %>
+  <p>
+    <%= link_to 'Edit', edit_text_post_path(text_post),
+      class: "btn btn-default" %>
+  </p>
+<% end %>
